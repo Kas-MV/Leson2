@@ -11,14 +11,14 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public static final int TICK_DELAY_MILLIS=250;
-    private SimpleDateFormat mTimeFormat  = new SimpleDateFormat("HH:mm:ss  dd:MM:yyyy" , Locale.US);
-    private Handler mHandler = new Handler(Looper.getMainLooper());
-    private TextView mTimeTextView;
-    private Runnable mTickRoutine = new Runnable() {
+    private SimpleDateFormat timeFormat  = new SimpleDateFormat("HH:mm:ss  dd:MM:yyyy" , Locale.US);
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private TextView timeTextView;
+    private Runnable tickRoutine = new Runnable() {
         @Override
         public void run() {
-        mTimeTextView.setText(mTimeFormat.format(Calendar.getInstance().getTime()));
-        mHandler.postDelayed(this, TICK_DELAY_MILLIS);
+        timeTextView.setText(timeFormat.format(Calendar.getInstance().getTime()));
+        handler.postDelayed(this, TICK_DELAY_MILLIS);
 
         }
     };
@@ -27,18 +27,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTimeTextView = findViewById(R.id.view_time);
+        timeTextView = findViewById(R.id.view_time);
     }
 
 
     public void Show(View view) {
-        mTimeTextView.setText(mTimeFormat.format(Calendar.getInstance().getTime()));
-        mTickRoutine.run();
+        timeTextView.setText(timeFormat.format(Calendar.getInstance().getTime()));
+        tickRoutine.run();
 
     }
 
     public void Hide(View view) {
-        mTimeTextView.setText("");
-        mHandler.removeCallbacks(mTickRoutine);
+        timeTextView.setText("");
+        handler.removeCallbacks(tickRoutine);
     }
 }
